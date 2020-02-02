@@ -1,10 +1,47 @@
 library keyboard_dismisser;
 
 import 'package:flutter/widgets.dart';
-import 'package:keyboard_dismisser/gesture_type.dart';
 
-class PassiveKeyboardDismisser extends StatelessWidget {
-  const PassiveKeyboardDismisser({
+enum GestureType {
+  onTapDown,
+  onTapUp,
+  onTap,
+  onTapCancel,
+  onSecondaryTapDown,
+  onSecondaryTapUp,
+  onSecondaryTapCancel,
+  onDoubleTap,
+  onLongPress,
+  onLongPressStart,
+  onLongPressMoveUpdate,
+  onLongPressUp,
+  onLongPressEnd,
+  onVerticalDragDown,
+  onVerticalDragStart,
+  onVerticalDragUpdate,
+  onVerticalDragEnd,
+  onVerticalDragCancel,
+  onHorizontalDragDown,
+  onHorizontalDragStart,
+  onHorizontalDragUpdate,
+  onHorizontalDragEnd,
+  onHorizontalDragCancel,
+  onForcePressStart,
+  onForcePressPeak,
+  onForcePressUpdate,
+  onForcePressEnd,
+  onPanDown,
+  onPanStart,
+  onPanUpdate,
+  onPanEnd,
+  onPanCancel,
+  onScaleStart,
+  onScaleUpdate,
+  onScaleEnd,
+}
+
+class KeyboardDismisser extends StatelessWidget {
+  const KeyboardDismisser({
     Key key,
     this.child,
     this.gestures = const [GestureType.onTap],
@@ -14,72 +51,125 @@ class PassiveKeyboardDismisser extends StatelessWidget {
   final Widget child;
   final List<GestureType> gestures;
 
-  void _shouldUnfocus(BuildContext context, GestureType gesture) {
-    if (gestures.contains(gesture)) {
-      final currentFocus = FocusScope.of(context);
-      if (!currentFocus.hasPrimaryFocus) {
-        currentFocus.unfocus();
-      }
+  void _shouldUnfocus(BuildContext context) {
+    final currentFocus = FocusScope.of(context);
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.unfocus();
     }
   }
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: () => _shouldUnfocus(context, GestureType.onTap),
-        onTapUp: (_) => _shouldUnfocus(context, GestureType.onTapUp),
-        onTapCancel: () => _shouldUnfocus(context, GestureType.onTapCancel),
-        onSecondaryTapDown: (_) =>
-            _shouldUnfocus(context, GestureType.onSecondaryTapDown),
-        onSecondaryTapUp: (_) =>
-            _shouldUnfocus(context, GestureType.onSecondaryTapUp),
-        onSecondaryTapCancel: () =>
-            _shouldUnfocus(context, GestureType.onSecondaryTapCancel),
-        onDoubleTap: () => _shouldUnfocus(context, GestureType.onDoubleTap),
-        onLongPress: () => _shouldUnfocus(context, GestureType.onLongPress),
-        onLongPressStart: (_) =>
-            _shouldUnfocus(context, GestureType.onLongPressStart),
-        onLongPressMoveUpdate: (_) =>
-            _shouldUnfocus(context, GestureType.onLongPressMoveUpdate),
-        onLongPressUp: () => _shouldUnfocus(context, GestureType.onLongPressUp),
-        onLongPressEnd: (_) =>
-            _shouldUnfocus(context, GestureType.onLongPressEnd),
-        onVerticalDragDown: (_) =>
-            _shouldUnfocus(context, GestureType.onVerticalDragDown),
-        onVerticalDragStart: (_) =>
-            _shouldUnfocus(context, GestureType.onVerticalDragStart),
-        onVerticalDragUpdate: (_) =>
-            _shouldUnfocus(context, GestureType.onVerticalDragUpdate),
-        onVerticalDragEnd: (_) =>
-            _shouldUnfocus(context, GestureType.onVerticalDragEnd),
-        onVerticalDragCancel: () =>
-            _shouldUnfocus(context, GestureType.onVerticalDragCancel),
-        onHorizontalDragDown: (_) =>
-            _shouldUnfocus(context, GestureType.onHorizontalDragDown),
-        onHorizontalDragStart: (_) =>
-            _shouldUnfocus(context, GestureType.onHorizontalDragStart),
-        onHorizontalDragUpdate: (_) =>
-            _shouldUnfocus(context, GestureType.onHorizontalDragUpdate),
-        onHorizontalDragEnd: (_) =>
-            _shouldUnfocus(context, GestureType.onHorizontalDragEnd),
-        onHorizontalDragCancel: () =>
-            _shouldUnfocus(context, GestureType.onHorizontalDragCancel),
-        onForcePressStart: (_) =>
-            _shouldUnfocus(context, GestureType.onForcePressStart),
-        onForcePressPeak: (_) =>
-            _shouldUnfocus(context, GestureType.onForcePressPeak),
-        onForcePressUpdate: (_) =>
-            _shouldUnfocus(context, GestureType.onForcePressUpdate),
-        onForcePressEnd: (_) =>
-            _shouldUnfocus(context, GestureType.onForcePressEnd),
-        onPanDown: (_) => _shouldUnfocus(context, GestureType.onPanDown),
-        onPanStart: (_) => _shouldUnfocus(context, GestureType.onPanStart),
-        onPanUpdate: (_) => _shouldUnfocus(context, GestureType.onPanUpdate),
-        onPanEnd: (_) => _shouldUnfocus(context, GestureType.onPanEnd),
-        onPanCancel: () => _shouldUnfocus(context, GestureType.onPanCancel),
-        onScaleStart: (_) => _shouldUnfocus(context, GestureType.onScaleStart),
-        onScaleUpdate: (_) =>
-            _shouldUnfocus(context, GestureType.onScaleUpdate),
-        onScaleEnd: (_) => _shouldUnfocus(context, GestureType.onScaleEnd),
+        onTap: gestures.contains(GestureType.onTap)
+            ? () => _shouldUnfocus(context)
+            : null,
+        onTapUp: gestures.contains(GestureType.onTapUp)
+            ? (_) => _shouldUnfocus(context)
+            : null,
+        onTapCancel: gestures.contains(GestureType.onTapCancel)
+            ? () => _shouldUnfocus(context)
+            : null,
+        onSecondaryTapDown: gestures.contains(GestureType.onSecondaryTapDown)
+            ? (_) => _shouldUnfocus(context)
+            : null,
+        onSecondaryTapUp: gestures.contains(GestureType.onSecondaryTapUp)
+            ? (_) => _shouldUnfocus(context)
+            : null,
+        onSecondaryTapCancel:
+            gestures.contains(GestureType.onSecondaryTapCancel)
+                ? () => _shouldUnfocus(context)
+                : null,
+        onDoubleTap: gestures.contains(GestureType.onDoubleTap)
+            ? () => _shouldUnfocus(context)
+            : null,
+        onLongPress: gestures.contains(GestureType.onLongPress)
+            ? () => _shouldUnfocus(context)
+            : null,
+        onLongPressStart: gestures.contains(GestureType.onLongPressStart)
+            ? (_) => _shouldUnfocus(context)
+            : null,
+        onLongPressMoveUpdate:
+            gestures.contains(GestureType.onLongPressMoveUpdate)
+                ? (_) => _shouldUnfocus(context)
+                : null,
+        onLongPressUp: gestures.contains(GestureType.onLongPressUp)
+            ? () => _shouldUnfocus(context)
+            : null,
+        onLongPressEnd: gestures.contains(GestureType.onLongPressEnd)
+            ? (_) => _shouldUnfocus(context)
+            : null,
+        onVerticalDragDown: gestures.contains(GestureType.onVerticalDragDown)
+            ? (_) => _shouldUnfocus(context)
+            : null,
+        onVerticalDragStart: gestures.contains(GestureType.onVerticalDragStart)
+            ? (_) => _shouldUnfocus(context)
+            : null,
+        onVerticalDragUpdate:
+            gestures.contains(GestureType.onVerticalDragUpdate)
+                ? (_) => _shouldUnfocus(context)
+                : null,
+        onVerticalDragEnd: gestures.contains(GestureType.onVerticalDragEnd)
+            ? (_) => _shouldUnfocus(context)
+            : null,
+        onVerticalDragCancel:
+            gestures.contains(GestureType.onVerticalDragCancel)
+                ? () => _shouldUnfocus(context)
+                : null,
+        onHorizontalDragDown:
+            gestures.contains(GestureType.onHorizontalDragDown)
+                ? (_) => _shouldUnfocus(context)
+                : null,
+        onHorizontalDragStart:
+            gestures.contains(GestureType.onHorizontalDragStart)
+                ? (_) => _shouldUnfocus(context)
+                : null,
+        onHorizontalDragUpdate:
+            gestures.contains(GestureType.onHorizontalDragUpdate)
+                ? (_) => _shouldUnfocus(context)
+                : null,
+        onHorizontalDragEnd: gestures.contains(GestureType.onHorizontalDragEnd)
+            ? (_) => _shouldUnfocus(context)
+            : null,
+        onHorizontalDragCancel:
+            gestures.contains(GestureType.onHorizontalDragCancel)
+                ? () => _shouldUnfocus(context)
+                : null,
+        onForcePressStart: gestures.contains(GestureType.onForcePressStart)
+            ? (_) => _shouldUnfocus(context)
+            : null,
+        onForcePressPeak: gestures.contains(GestureType.onForcePressPeak)
+            ? (_) => _shouldUnfocus(context)
+            : null,
+        onForcePressUpdate: gestures.contains(GestureType.onForcePressUpdate)
+            ? (_) => _shouldUnfocus(context)
+            : null,
+        onForcePressEnd: gestures.contains(GestureType.onForcePressEnd)
+            ? (_) => _shouldUnfocus(context)
+            : null,
+        onPanDown: gestures.contains(GestureType.onPanDown)
+            ? (_) => _shouldUnfocus(context)
+            : null,
+        onPanStart: gestures.contains(GestureType.onPanStart)
+            ? (_) => _shouldUnfocus(context)
+            : null,
+        onPanUpdate: gestures.contains(GestureType.onPanUpdate)
+            ? (_) => _shouldUnfocus(context)
+            : null,
+        onPanEnd: gestures.contains(GestureType.onPanEnd)
+            ? (_) => _shouldUnfocus(context)
+            : null,
+        onPanCancel: gestures.contains(GestureType.onPanCancel)
+            ? () => _shouldUnfocus(context)
+            : null,
+        onScaleStart: gestures.contains(GestureType.onScaleStart)
+            ? (_) => _shouldUnfocus(context)
+            : null,
+        onScaleUpdate: gestures.contains(GestureType.onScaleUpdate)
+            ? (_) => _shouldUnfocus(context)
+            : null,
+        onScaleEnd: gestures.contains(GestureType.onScaleEnd)
+            ? (_) => _shouldUnfocus(context)
+            : null,
         child: child,
       );
 }
