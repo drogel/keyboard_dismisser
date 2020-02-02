@@ -24,13 +24,18 @@ class ExamplePage extends StatelessWidget {
             title: Text('KeyboardDismisser example'),
           ),
           body: Padding(
-            padding: const EdgeInsets.all(48.0),
-            child: TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Tap to show the keyboard',
-                hintText: 'Tap elsewhere to dismiss',
-              ),
+            padding: const EdgeInsets.all(48),
+            child: Column(
+              children: <Widget>[
+                TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Tap to show the keyboard',
+                    hintText: 'Gesture elsewhere to dismiss',
+                  ),
+                ),
+                const SizedBox(height: 24),
+              ],
             ),
           ),
         ),

@@ -32,7 +32,11 @@ enum GestureType {
   onForcePressEnd,
   onPanDown,
   onPanStart,
-  onPanUpdate,
+  onPanUpdateAnyDirection,
+  onPanUpdateDownDirection,
+  onPanUpdateUpDirection,
+  onPanUpdateLeftDirection,
+  onPanUpdateRightDirection,
   onPanEnd,
   onPanCancel,
   onScaleStart,
@@ -58,10 +62,39 @@ class KeyboardDismisser extends StatelessWidget {
     }
   }
 
+  void _shouldUnfocusWithDetails(
+    BuildContext context,
+    DragUpdateDetails details,
+  ) {
+    if (gestures.contains(GestureType.onPanUpdateDownDirection) &&
+        details.delta.dy > 0) {
+      _shouldUnfocus(context);
+    } else if (gestures.contains(GestureType.onPanUpdateUpDirection) &&
+        details.delta.dy < 0) {
+      _shouldUnfocus(context);
+    } else if (gestures.contains(GestureType.onPanUpdateRightDirection) &&
+        details.delta.dx > 0) {
+      _shouldUnfocus(context);
+    } else if (gestures.contains(GestureType.onPanUpdateLeftDirection) &&
+        details.delta.dx < 0) {
+      _shouldUnfocus(context);
+    }
+  }
+
+  bool _gesturesContainsAnyPanUpdate() =>
+      gestures.contains(GestureType.onPanUpdateAnyDirection) ||
+      gestures.contains(GestureType.onPanUpdateDownDirection) ||
+      gestures.contains(GestureType.onPanUpdateUpDirection) ||
+      gestures.contains(GestureType.onPanUpdateRightDirection) ||
+      gestures.contains(GestureType.onPanUpdateLeftDirection);
+
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: gestures.contains(GestureType.onTap)
             ? () => _shouldUnfocus(context)
+            : null,
+        onPanUpdate: _gesturesContainsAnyPanUpdate()
+            ? (details) => _shouldUnfocusWithDetails(context, details)
             : null,
         onTapUp: gestures.contains(GestureType.onTapUp)
             ? (_) => _shouldUnfocus(context)
@@ -150,9 +183,6 @@ class KeyboardDismisser extends StatelessWidget {
             ? (_) => _shouldUnfocus(context)
             : null,
         onPanStart: gestures.contains(GestureType.onPanStart)
-            ? (_) => _shouldUnfocus(context)
-            : null,
-        onPanUpdate: gestures.contains(GestureType.onPanUpdate)
             ? (_) => _shouldUnfocus(context)
             : null,
         onPanEnd: gestures.contains(GestureType.onPanEnd)
