@@ -1,5 +1,6 @@
 library keyboard_dismisser;
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 
 enum GestureType {
@@ -48,13 +49,19 @@ class KeyboardDismisser extends StatelessWidget {
   const KeyboardDismisser({
     Key key,
     this.child,
+    this.behavior,
     this.gestures = const [GestureType.onTap],
+    this.dragStartBehavior = DragStartBehavior.start,
+    this.excludeFromSemantics = false,
   })
       : assert(gestures != null),
         super(key: key);
 
   final Widget child;
   final List<GestureType> gestures;
+  final DragStartBehavior dragStartBehavior;
+  final HitTestBehavior behavior;
+  final bool excludeFromSemantics;
 
   void _shouldUnfocus(BuildContext context) {
     final currentFocus = FocusScope.of(context);
@@ -72,13 +79,13 @@ class KeyboardDismisser extends StatelessWidget {
         dy > 0 && !isMainlyHorizontal) {
       _shouldUnfocus(context);
     } else if (gestures.contains(GestureType.onPanUpdateUpDirection) &&
-        dy < 0  && !isMainlyHorizontal) {
+        dy < 0 && !isMainlyHorizontal) {
       _shouldUnfocus(context);
     } else if (gestures.contains(GestureType.onPanUpdateRightDirection) &&
-        dx > 0  && isMainlyHorizontal) {
+        dx > 0 && isMainlyHorizontal) {
       _shouldUnfocus(context);
     } else if (gestures.contains(GestureType.onPanUpdateLeftDirection) &&
-        dx < 0  && isMainlyHorizontal) {
+        dx < 0 && isMainlyHorizontal) {
       _shouldUnfocus(context);
     }
   }
@@ -92,8 +99,14 @@ class KeyboardDismisser extends StatelessWidget {
   @override
   Widget build(BuildContext context) =>
       GestureDetector(
+        excludeFromSemantics: excludeFromSemantics,
+        dragStartBehavior: dragStartBehavior,
+        behavior: behavior,
         onTap: gestures.contains(GestureType.onTap)
             ? () => _shouldUnfocus(context)
+            : null,
+        onTapDown: gestures.contains(GestureType.onTapDown)
+            ? (_) => _shouldUnfocus(context)
             : null,
         onPanUpdate: gestures.contains(GestureType.onPanUpdateAnyDirection)
             ? (_) => _shouldUnfocus(context)
