@@ -49,7 +49,8 @@ class KeyboardDismisser extends StatelessWidget {
     Key key,
     this.child,
     this.gestures = const [GestureType.onTap],
-  })  : assert(gestures != null),
+  })
+      : assert(gestures != null),
         super(key: key);
 
   final Widget child;
@@ -62,39 +63,40 @@ class KeyboardDismisser extends StatelessWidget {
     }
   }
 
-  void _shouldUnfocusWithDetails(
-    BuildContext context,
-    DragUpdateDetails details,
-  ) {
+  void _shouldUnfocusWithDetails(BuildContext context,
+      DragUpdateDetails details,) {
+    final dy = details.delta.dy;
+    final dx = details.delta.dx;
+    final isMainlyHorizontal = dx.abs() - dy.abs() > 0;
     if (gestures.contains(GestureType.onPanUpdateDownDirection) &&
-        details.delta.dy > 0) {
+        dy > 0 && !isMainlyHorizontal) {
       _shouldUnfocus(context);
     } else if (gestures.contains(GestureType.onPanUpdateUpDirection) &&
-        details.delta.dy < 0) {
+        dy < 0  && !isMainlyHorizontal) {
       _shouldUnfocus(context);
     } else if (gestures.contains(GestureType.onPanUpdateRightDirection) &&
-        details.delta.dx > 0) {
+        dx > 0  && isMainlyHorizontal) {
       _shouldUnfocus(context);
     } else if (gestures.contains(GestureType.onPanUpdateLeftDirection) &&
-        details.delta.dx < 0) {
+        dx < 0  && isMainlyHorizontal) {
       _shouldUnfocus(context);
     }
   }
 
-  bool _gesturesContainsAnyPanUpdate() =>
-      gestures.contains(GestureType.onPanUpdateAnyDirection) ||
+  bool _gesturesContainsDirectionalPanUpdate() =>
       gestures.contains(GestureType.onPanUpdateDownDirection) ||
-      gestures.contains(GestureType.onPanUpdateUpDirection) ||
-      gestures.contains(GestureType.onPanUpdateRightDirection) ||
-      gestures.contains(GestureType.onPanUpdateLeftDirection);
+          gestures.contains(GestureType.onPanUpdateUpDirection) ||
+          gestures.contains(GestureType.onPanUpdateRightDirection) ||
+          gestures.contains(GestureType.onPanUpdateLeftDirection);
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
+  Widget build(BuildContext context) =>
+      GestureDetector(
         onTap: gestures.contains(GestureType.onTap)
             ? () => _shouldUnfocus(context)
             : null,
-        onPanUpdate: _gesturesContainsAnyPanUpdate()
-            ? (details) => _shouldUnfocusWithDetails(context, details)
+        onPanUpdate: gestures.contains(GestureType.onPanUpdateAnyDirection)
+            ? (_) => _shouldUnfocus(context)
             : null,
         onTapUp: gestures.contains(GestureType.onTapUp)
             ? (_) => _shouldUnfocus(context)
@@ -109,9 +111,9 @@ class KeyboardDismisser extends StatelessWidget {
             ? (_) => _shouldUnfocus(context)
             : null,
         onSecondaryTapCancel:
-            gestures.contains(GestureType.onSecondaryTapCancel)
-                ? () => _shouldUnfocus(context)
-                : null,
+        gestures.contains(GestureType.onSecondaryTapCancel)
+            ? () => _shouldUnfocus(context)
+            : null,
         onDoubleTap: gestures.contains(GestureType.onDoubleTap)
             ? () => _shouldUnfocus(context)
             : null,
@@ -122,9 +124,9 @@ class KeyboardDismisser extends StatelessWidget {
             ? (_) => _shouldUnfocus(context)
             : null,
         onLongPressMoveUpdate:
-            gestures.contains(GestureType.onLongPressMoveUpdate)
-                ? (_) => _shouldUnfocus(context)
-                : null,
+        gestures.contains(GestureType.onLongPressMoveUpdate)
+            ? (_) => _shouldUnfocus(context)
+            : null,
         onLongPressUp: gestures.contains(GestureType.onLongPressUp)
             ? () => _shouldUnfocus(context)
             : null,
@@ -138,35 +140,35 @@ class KeyboardDismisser extends StatelessWidget {
             ? (_) => _shouldUnfocus(context)
             : null,
         onVerticalDragUpdate:
-            gestures.contains(GestureType.onVerticalDragUpdate)
-                ? (_) => _shouldUnfocus(context)
-                : null,
+        _gesturesContainsDirectionalPanUpdate()
+            ? (details) => _shouldUnfocusWithDetails(context, details)
+            : null,
         onVerticalDragEnd: gestures.contains(GestureType.onVerticalDragEnd)
             ? (_) => _shouldUnfocus(context)
             : null,
         onVerticalDragCancel:
-            gestures.contains(GestureType.onVerticalDragCancel)
-                ? () => _shouldUnfocus(context)
-                : null,
+        gestures.contains(GestureType.onVerticalDragCancel)
+            ? () => _shouldUnfocus(context)
+            : null,
         onHorizontalDragDown:
-            gestures.contains(GestureType.onHorizontalDragDown)
-                ? (_) => _shouldUnfocus(context)
-                : null,
+        gestures.contains(GestureType.onHorizontalDragDown)
+            ? (_) => _shouldUnfocus(context)
+            : null,
         onHorizontalDragStart:
-            gestures.contains(GestureType.onHorizontalDragStart)
-                ? (_) => _shouldUnfocus(context)
-                : null,
+        gestures.contains(GestureType.onHorizontalDragStart)
+            ? (_) => _shouldUnfocus(context)
+            : null,
         onHorizontalDragUpdate:
-            gestures.contains(GestureType.onHorizontalDragUpdate)
-                ? (_) => _shouldUnfocus(context)
-                : null,
+        _gesturesContainsDirectionalPanUpdate()
+            ? (details) => _shouldUnfocusWithDetails(context, details)
+            : null,
         onHorizontalDragEnd: gestures.contains(GestureType.onHorizontalDragEnd)
             ? (_) => _shouldUnfocus(context)
             : null,
         onHorizontalDragCancel:
-            gestures.contains(GestureType.onHorizontalDragCancel)
-                ? () => _shouldUnfocus(context)
-                : null,
+        gestures.contains(GestureType.onHorizontalDragCancel)
+            ? () => _shouldUnfocus(context)
+            : null,
         onForcePressStart: gestures.contains(GestureType.onForcePressStart)
             ? (_) => _shouldUnfocus(context)
             : null,
