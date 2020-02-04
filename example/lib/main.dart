@@ -30,17 +30,12 @@ class ExamplePage extends StatelessWidget {
               horizontal: 24,
               vertical: 48,
             ),
-            child: Column(
-              children: <Widget>[
-                TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Tap to show the keyboard',
-                    hintText: 'Tap elsewhere or swipe down to dismiss',
-                  ),
-                ),
-                const SizedBox(height: 24),
-              ],
+            child: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Tap to show the keyboard',
+                hintText: 'Tap elsewhere or swipe down to dismiss',
+              ),
             ),
           ),
         ),
