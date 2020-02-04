@@ -3,6 +3,23 @@ library keyboard_dismisser;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 
+/// The gestures available to dismiss the keyboard with [KeyboardDismisser].
+///
+/// Note that these gestures are also the ones available in [GestureDetector]
+/// from Flutter's widgets library, except for [onPanUpdateDownDirection],
+/// [onPanUpdateUpDirection], [onPanUpdateLeftDirection] and
+/// [onPanUpdateRightDirection], which are special types of
+/// [onPanUpdateAnyDirection] (corresponding to [GestureDetector.onPanUpdate])
+/// that will trigger the keyboard's dismissal when swiping only in the
+/// specified direction (down, up, left and right, respectively).
+///
+/// Just like with [GestureDetector], pan and scale callbacks cannot be used
+/// simultaneously, and horizontal and vertical drag callbacks cannot be used
+/// simultaneously.
+///
+/// See also:
+/// - [GestureDetector], which is a widget that detects gestures, on which this
+/// package is based.
 enum GestureType {
   onTapDown,
   onTapUp,
