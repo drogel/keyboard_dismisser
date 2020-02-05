@@ -1,7 +1,6 @@
 library keyboard_dismisser;
 
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 /// The gestures available to dismiss the keyboard with [KeyboardDismisser].
@@ -19,8 +18,8 @@ import 'package:flutter/widgets.dart';
 /// simultaneously.
 ///
 /// See also:
-/// - [GestureDetector], which is a widget that detects gestures, on which this
-/// package is based.
+///
+///   * [GestureDetector], which is a widget that detects gestures.
 enum GestureType {
   onTapDown,
   onTapUp,
@@ -97,6 +96,14 @@ enum GestureType {
 /// [KeyboardDismisser], since every [Scaffold] will be a child of the
 /// corresponding app widget.
 class KeyboardDismisser extends StatelessWidget {
+  /// Creates a widget that can dismiss the keyboard when performing a gesture.
+  ///
+  /// The [gestures] property holds a list of [GestureType] that will dismiss
+  /// the keyboard when performed. This way, several gestures are supported.
+  /// Pan and scale callbacks cannot be used simultaneously, and horizontal and
+  /// vertical drag callbacks cannot be used simultaneously. By default, the
+  /// [KeyboardDismisser] will dismiss the keyboard when performing a tapping
+  /// gesture.
   const KeyboardDismisser({
     Key key,
     this.child,
@@ -107,11 +114,36 @@ class KeyboardDismisser extends StatelessWidget {
   })  : assert(gestures != null),
         super(key: key);
 
-  final Widget child;
+  /// The list of gestures that will dismiss the keyboard when performed.
   final List<GestureType> gestures;
+
+  /// Determines the way that drag start behavior is handled.
+  ///
+  /// See also:
+  ///
+  ///   * [GestureDetector.dragStartBehavior], which determines when a drag
+  ///   formally starts when the user initiates a drag.
   final DragStartBehavior dragStartBehavior;
+
+  /// How the this widget's [GestureDetector] should behave when hit testing.
+  ///
+  /// See also:
+  ///
+  ///   * [GestureDetector.behavior], which defaults to
+  ///   [HitTestBehavior.deferToChild] if [child] is not null and
+  ///   [HitTestBehavior.translucent] if child is null.
   final HitTestBehavior behavior;
+
+  /// Whether to exclude these gestures from the semantics tree.
+  ///
+  /// See also:
+  ///
+  ///   * [GestureDetector.excludeFromSemantics], which includes an example of
+  ///   a case where this property can be used.
   final bool excludeFromSemantics;
+
+  /// The widget below this widget in the tree.
+  final Widget child;
 
   void _shouldUnfocus(BuildContext context) {
     final currentFocus = FocusScope.of(context);
