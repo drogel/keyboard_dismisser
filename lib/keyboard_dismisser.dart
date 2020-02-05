@@ -77,18 +77,36 @@ enum GestureType {
 /// any inactive widget. For example:
 ///
 /// ```dart
-///   @override
-///   Widget build(BuildContext context) => KeyboardDismisser(
-///       child: Scaffold(
-///           appBar: AppBar(title: Text('KeyboardDismisser example')),
-///           body: Center(
-///               child: RaisedButton(
-///                   onPressed: () => print('Keyboard persists'),
-///                   child: Text('Tap me!'),
-///               ),
-///           ),
-///       ),
-///   );
+/// class KeyboardDismissiblePageWithButton extends StatelessWidget {
+///  @override
+///  Widget build(BuildContext context) => KeyboardDismisser(
+///        child: Scaffold(
+///          appBar: AppBar(
+///            title: Text('KeyboardDismisser example'),
+///          ),
+///          body: Column(
+///            children: <Widget>[
+///              Padding(
+///                padding: const EdgeInsets.all(42.0),
+///                child: TextField(
+///                  decoration: InputDecoration(
+///                    border: OutlineInputBorder(),
+///                    labelText: 'Tap to show the keyboard',
+///                    hintText: 'Tap elsewhere to dismiss',
+///                  ),
+///                ),
+///              ),
+///              Center(
+///                child: RaisedButton(
+///                  onPressed: () => print('Keyboard persists'),
+///                  child: Text('Tap me!'),
+///                ),
+///              ),
+///            ],
+///          ),
+///        ),
+///      );
+/// }
 /// ```
 ///
 /// Wrapping a [MaterialApp], [WidgetsApp] or [CupertinoApp] with a
