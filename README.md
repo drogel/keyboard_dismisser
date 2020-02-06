@@ -8,7 +8,7 @@ A simple Flutter package to hide the keyboard when performing a gesture outside 
 
 * By default, dismisses the keyboard when tapping outside of it on an inactive widget.
 * Supports several gestures at the same time.
-* Supports all the gestures available in Flutter's GestureDetector.
+* Supports all the gestures available in Flutter's `GestureDetector`.
 * Supports directional swipes to dismiss the keyboard.
 * Can be applied to a whole page by wrapping its Scaffold.
 * Can be applied to a whole app, by wrapping its MaterialApp, WidgetsApp, or CupertinoApp.
@@ -48,7 +48,6 @@ In the `pubspec.yaml` of your flutter project, add the following dependency:
 
 ```yaml
 dependencies:
-
   keyboard_dismisser: "^1.0.0"
 ```
 
@@ -60,7 +59,7 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 ## Author
 
-**Diego Rogel** - [GitHub](https://github.com/drogel)
+Diego Rogel - [GitHub](https://github.com/drogel)
 
 ## Changelog
 
