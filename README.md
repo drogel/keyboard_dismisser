@@ -15,13 +15,57 @@ A simple Flutter package to hide the keyboard when performing a gesture outside 
 * Customizable drag start behavior and gesture hit testing behavior.
 * Can be excluded from the semantics tree.
 
-## Getting Started
+## Usage
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+This package exposes a `KeyboardDismisser` stateless widget. You can wrap your widget with it, and
+your widget will be able to dismiss the keyboard when performing a gesture.
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+```dart
+    Widget build(BuildContext context) => KeyboardDismisser(
+        child: Scaffold(
+            body: ...,
+        ),
+      );
+```
+
+`KeyboardDismisser` takes a `gestures` parameter, which is a list of `GestureType` enum cases. This
+way, you can pass any gesture you like for the keyboard dismissal. By default, `KeyboardDismisser`
+will dismiss the keyboard when tapping outside of it, but it handles several gestures at the 
+same time.
+
+```dart
+    Widget build(BuildContext context) => KeyboardDismisser(
+        gestures: [GestureType.onTap, GestureType.onPanUpdateDownDirection],
+        child: Scaffold(
+            body: ...,
+        ),
+      );
+```
+
+## Getting started
+
+In the `pubspec.yaml` of your flutter project, add the following dependency:
+
+```yaml
+dependencies:
+
+  keyboard_dismisser: "^1.0.0"
+```
+
+Then run `$ flutter pub get`. In your library, add the following import:
+
+```dart
+import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+```
+
+## Author
+
+**Diego Rogel** - [GitHub](https://github.com/drogel)
+
+## Changelog
+
+Check the [Changelog](./CHANGELOG.md) page to see what's recently changed.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
