@@ -4,6 +4,8 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 void main() => runApp(ExampleApp());
 
 class ExampleApp extends StatelessWidget {
+  const ExampleApp({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) => MaterialApp(
         title: 'Keyboard Dismisser',
@@ -13,7 +15,7 @@ class ExampleApp extends StatelessWidget {
 }
 
 class ExamplePage extends StatelessWidget {
-  ExamplePage({Key key}) : super(key: key);
+  const ExamplePage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => KeyboardDismisser(
