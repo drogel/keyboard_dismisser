@@ -2,6 +2,19 @@
 
 A simple Flutter package to hide the keyboard when performing a gesture outside of it.
 
+![Example](./keyboard_dismisser.gif)
+
+## Features
+
+* By default, dismisses the keyboard when tapping outside of it on an inactive widget.
+* Supports several gestures at the same time.
+* Supports all the gestures available in Flutter's GestureDetector.
+* Supports directional swipes to dismiss the keyboard.
+* Can be applied to a whole page by wrapping its Scaffold.
+* Can be applied to a whole app, by wrapping its MaterialApp, WidgetsApp, or CupertinoApp.
+* Customizable drag start behavior and gesture hit testing behavior.
+* Can be excluded from the semantics tree.
+
 ## Getting Started
 
 This project is a starting point for a Dart
