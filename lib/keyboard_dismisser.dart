@@ -163,12 +163,8 @@ class KeyboardDismisser extends StatelessWidget {
   /// The widget below this widget in the tree.
   final Widget child;
 
-  void _shouldUnfocus(BuildContext context) {
-    final currentFocus = FocusScope.of(context);
-    if (!currentFocus.hasPrimaryFocus) {
-      currentFocus.requestFocus(FocusNode());
-    }
-  }
+  void _shouldUnfocus(BuildContext context) =>
+      WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
 
   void _shouldUnfocusWithDetails(
     BuildContext context,
