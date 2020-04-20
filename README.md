@@ -50,7 +50,7 @@ In the `pubspec.yaml` of your flutter project, add the following dependency:
 
 ```yaml
 dependencies:
-  keyboard_dismisser: "^1.0.0"
+  keyboard_dismisser: "^[LATEST_VERSION]"
 ```
 
 Then run `$ flutter pub get`. In your library, add the following import:
