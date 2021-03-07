@@ -1,6 +1,6 @@
 name: example
 description: A Flutter example app that uses the KeyboardDismisser widget.
-
+publish_to: 'none'
 version: 1.0.0+1
 
 environment:

@@ -4,7 +4,7 @@ version: 1.0.2
 homepage: https://github.com/drogel/keyboard_dismisser
 
 environment:
-  sdk: ">=1.19.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
