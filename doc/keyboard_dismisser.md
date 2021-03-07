@@ -69,7 +69,7 @@ const KeyboardDismisser({
 ```
  Creates a widget that can dismiss the keyboard when performing a gesture.
 
-The `gestures] property holds a list of `GestureType` that will dismiss
+The `[gestures]` property holds a list of `GestureType` that will dismiss
 the keyboard when performed. This way, several gestures are supported.
 Pan and scale callbacks cannot be used simultaneously, and horizontal and
 vertical drag callbacks cannot be used simultaneously. By default, the

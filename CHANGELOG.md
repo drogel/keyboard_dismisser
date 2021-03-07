@@ -1,3 +1,7 @@
+## [2.0.0] - March 2021
+
+* Migrates package to Dart null safety.
+
 ## [1.0.2] - April 2020
 
 * Moves the unfocusing method to use `WidgetsBinding.focusManager`.

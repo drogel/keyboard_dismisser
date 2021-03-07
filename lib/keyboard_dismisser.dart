@@ -162,41 +162,6 @@ class KeyboardDismisser extends StatelessWidget {
   /// The widget below this widget in the tree.
   final Widget? child;
 
-  void _unfocus(BuildContext context) =>
-      WidgetsBinding.instance?.focusManager.primaryFocus?.unfocus();
-
-  void _unfocusWithDetails(
-    BuildContext context,
-    DragUpdateDetails details,
-  ) {
-    final dy = details.delta.dy;
-    final dx = details.delta.dx;
-    final isDragMainlyHorizontal = dx.abs() - dy.abs() > 0;
-    if (gestures.contains(GestureType.onPanUpdateDownDirection) &&
-        dy > 0 &&
-        !isDragMainlyHorizontal) {
-      _unfocus(context);
-    } else if (gestures.contains(GestureType.onPanUpdateUpDirection) &&
-        dy < 0 &&
-        !isDragMainlyHorizontal) {
-      _unfocus(context);
-    } else if (gestures.contains(GestureType.onPanUpdateRightDirection) &&
-        dx > 0 &&
-        isDragMainlyHorizontal) {
-      _unfocus(context);
-    } else if (gestures.contains(GestureType.onPanUpdateLeftDirection) &&
-        dx < 0 &&
-        isDragMainlyHorizontal) {
-      _unfocus(context);
-    }
-  }
-
-  bool _gesturesContainsDirectionalPanUpdate() =>
-      gestures.contains(GestureType.onPanUpdateDownDirection) ||
-      gestures.contains(GestureType.onPanUpdateUpDirection) ||
-      gestures.contains(GestureType.onPanUpdateRightDirection) ||
-      gestures.contains(GestureType.onPanUpdateLeftDirection);
-
   @override
   Widget build(BuildContext context) => GestureDetector(
         excludeFromSemantics: excludeFromSemantics,
@@ -315,4 +280,39 @@ class KeyboardDismisser extends StatelessWidget {
             : null,
         child: child,
       );
+
+  void _unfocus(BuildContext context) =>
+      WidgetsBinding.instance?.focusManager.primaryFocus?.unfocus();
+
+  void _unfocusWithDetails(
+    BuildContext context,
+    DragUpdateDetails details,
+  ) {
+    final dy = details.delta.dy;
+    final dx = details.delta.dx;
+    final isDragMainlyHorizontal = dx.abs() - dy.abs() > 0;
+    if (gestures.contains(GestureType.onPanUpdateDownDirection) &&
+        dy > 0 &&
+        !isDragMainlyHorizontal) {
+      _unfocus(context);
+    } else if (gestures.contains(GestureType.onPanUpdateUpDirection) &&
+        dy < 0 &&
+        !isDragMainlyHorizontal) {
+      _unfocus(context);
+    } else if (gestures.contains(GestureType.onPanUpdateRightDirection) &&
+        dx > 0 &&
+        isDragMainlyHorizontal) {
+      _unfocus(context);
+    } else if (gestures.contains(GestureType.onPanUpdateLeftDirection) &&
+        dx < 0 &&
+        isDragMainlyHorizontal) {
+      _unfocus(context);
+    }
+  }
+
+  bool _gesturesContainsDirectionalPanUpdate() =>
+      gestures.contains(GestureType.onPanUpdateDownDirection) ||
+      gestures.contains(GestureType.onPanUpdateUpDirection) ||
+      gestures.contains(GestureType.onPanUpdateRightDirection) ||
+      gestures.contains(GestureType.onPanUpdateLeftDirection);
 }
