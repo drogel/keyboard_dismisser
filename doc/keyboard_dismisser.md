@@ -59,7 +59,7 @@ corresponding app widget.
 
 ```dart
 const KeyboardDismisser({
-    Key key,
+    Key? key,
     this.child,
     this.behavior,
     this.gestures = const [GestureType.onTap],
@@ -69,7 +69,7 @@ const KeyboardDismisser({
 ```
  Creates a widget that can dismiss the keyboard when performing a gesture.
 
-The `gestures] property holds a list of `GestureType` that will dismiss
+The `[gestures]` property holds a list of `GestureType` that will dismiss
 the keyboard when performed. This way, several gestures are supported.
 Pan and scale callbacks cannot be used simultaneously, and horizontal and
 vertical drag callbacks cannot be used simultaneously. By default, the
@@ -86,7 +86,7 @@ The list of gestures that will dismiss the keyboard when performed.
 
 Determines the way that drag start behavior is handled.
 
-#### behavior (`HitTestBehavior`)
+#### behavior (`HitTestBehavior?`)
 
 How the this widget's `GestureDetector` should behave when hit testing.
 
@@ -94,7 +94,7 @@ How the this widget's `GestureDetector` should behave when hit testing.
 
 Whether to exclude these gestures from the semantics tree.
 
-#### child (`Widget`)
+#### child (`Widget?`)
 
 The widget below this widget in the tree.
 
