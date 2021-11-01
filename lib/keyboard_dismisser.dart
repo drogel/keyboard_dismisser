@@ -131,6 +131,9 @@ class KeyboardDismisser extends StatelessWidget {
     this.excludeFromSemantics = false,
   }) : super(key: key);
 
+  /// The callback function that will invoke when keyboard focus is changed
+  final VoidCallback? onKeyboardFocusChanged;
+
   /// The list of gestures that will dismiss the keyboard when performed.
   final List<GestureType> gestures;
 
@@ -281,8 +284,11 @@ class KeyboardDismisser extends StatelessWidget {
         child: child,
       );
 
-  void _unfocus(BuildContext context) =>
-      WidgetsBinding.instance?.focusManager.primaryFocus?.unfocus();
+  void _unfocus(BuildContext context) {
+    WidgetsBinding.instance?.focusManager.primaryFocus?.unfocus();
+    if (onKeyboardFocusChanged == null) return;
+    onKeyboardFocusChanged!();
+  }
 
   void _unfocusWithDetails(
     BuildContext context,
