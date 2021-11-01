@@ -129,6 +129,7 @@ class KeyboardDismisser extends StatelessWidget {
     this.gestures = const [GestureType.onTap],
     this.dragStartBehavior = DragStartBehavior.start,
     this.excludeFromSemantics = false,
+    this.onKeyboardFocusChanged,
   }) : super(key: key);
 
   /// The callback function that will invoke when keyboard focus is changed
