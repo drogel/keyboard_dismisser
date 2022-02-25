@@ -21,44 +21,177 @@ import 'package:flutter/widgets.dart';
 ///
 ///   * [GestureDetector], which is a widget that detects gestures.
 enum GestureType {
+  /// A [GestureType] that represents the event in which a pointer that might
+  /// cause a tap has contacted the screen at a particular location.
   onTapDown,
+
+  /// A [GestureType] that represents the event in which a pointer that will
+  /// trigger a tap has stopped contacting the screen at a particular location.
   onTapUp,
+
+  /// A [GestureType] that represents the event in which a tap has occurred.
   onTap,
+
+  /// A [GestureType] that represents the event in which the pointer that
+  /// previously triggered a [GestureType.onTapDown] event will not end up
+  /// causing a tap.
   onTapCancel,
+
+  /// A [GestureType] that represents the event in which a pointer that might
+  /// cause a secondary tap has contacted the screen at a particular location.
   onSecondaryTapDown,
+
+  /// A [GestureType] that represents the event in which a pointer that will
+  /// trigger a secondary tap has stopped contacting the screen at a particular
+  /// location.
   onSecondaryTapUp,
+
+  /// A [GestureType] that represents the event in which the pointer that
+  /// previously triggered [GestureType.onSecondaryTapDown] will not end up
+  /// causing a tap.
   onSecondaryTapCancel,
+
+  /// A [GestureType] that represents the event in which a pointer that might
+  /// cause a double tap has contacted the screen at a particular location.
   onDoubleTap,
+
+  /// A [GestureType] that represents the event in which a long press gesture
+  /// has been recognized.
   onLongPress,
+
+  /// A [GestureType] that represents the event in which a long press gesture
+  /// has been recognized.
   onLongPressStart,
+
+  /// A [GestureType] that represents the event in which a pointer has been
+  /// drag-moved after a long-press.
   onLongPressMoveUpdate,
+
+  /// A [GestureType] that represents the event in which a pointer that has
+  /// triggered a long-press has stopped contacting the screen.
   onLongPressUp,
+
+  /// A [GestureType] that represents the event in which a pointer that has
+  /// triggered a long-press has stopped contacting the screen.
   onLongPressEnd,
+
+  /// A [GestureType] that represents the event in which a pointer has
+  /// contacted the screen and might begin to move vertically.
   onVerticalDragDown,
+
+  /// A [GestureType] that represents the event in which a pointer has
+  /// contacted the screen and has begun to move vertically.
   onVerticalDragStart,
+
+  /// A [GestureType] that represents the event in which a pointer that is in
+  /// contact with the screen and moving vertically has moved in the vertical
+  /// direction.
   onVerticalDragUpdate,
+
+  /// A [GestureType] that represents the event in which a pointer that was
+  /// previously in contact with the screen and moving vertically is no longer
+  /// in contact with the screen and was moving at a specific velocity when it
+  /// stopped contacting the screen.
   onVerticalDragEnd,
+
+  /// A [GestureType] that represents the event in which the pointer that
+  /// previously triggered [GestureType.onVerticalDragDown] did not complete.
   onVerticalDragCancel,
+
+  /// A [GestureType] that represents the event in which a pointer has
+  /// contacted the screen and might begin to move horizontally.
   onHorizontalDragDown,
+
+  /// A [GestureType] that represents the event in which a pointer has
+  /// contacted the screen and has begun to move horizontally.
   onHorizontalDragStart,
+
+  /// A [GestureType] that represents the event in which a pointer that is in
+  /// contact with the screen and moving horizontally has moved in the
+  /// horizontal direction.
   onHorizontalDragUpdate,
+
+  /// A [GestureType] that represents the event in which a pointer that was
+  /// previously in contact with the screen and moving horizontally is no
+  /// longer in contact with the screen and was moving at a specific velocity
+  /// when it stopped contacting the screen.
   onHorizontalDragEnd,
+
+  /// A [GestureType] that represents the event in which the pointer that
+  /// previously triggered [GestureType.onHorizontalDragDown] did not complete.
   onHorizontalDragCancel,
+
+  /// A [GestureType] that represents the event in which the pointer is in
+  /// contact with the screen and has pressed with sufficient force to initiate
+  /// a force press.
   onForcePressStart,
+
+  /// A [GestureType] that represents the event in which the pointer is in
+  /// contact with the screen and has pressed with the maximum force.
   onForcePressPeak,
+
+  /// A [GestureType] that represents the event in which a pointer is in
+  /// a contact with force with the screen and is either moving on the
+  /// plane of the screen, pressing the screen with varying forces or both
+  /// simultaneously.
   onForcePressUpdate,
+
+  /// A [GestureType] that represents the event in which the pointer is no
+  /// longer in contact with the screen.
   onForcePressEnd,
+
+  /// A [GestureType] that represents the event in which a pointer has
+  /// contacted the screen and might begin to move.
   onPanDown,
+
+  /// A [GestureType] that represents the event in which a pointer has
+  /// contacted the screen and has begun to move.
   onPanStart,
+
+  /// A [GestureType] that represents the event in which a pointer that is in
+  /// contact with the screen and moving has moved again.
   onPanUpdateAnyDirection,
+
+  /// A [GestureType] that represents the event in which a pointer that is in
+  /// contact with the screen and moving has moved again, moving vertically in
+  /// a downward direction.
   onPanUpdateDownDirection,
+
+  /// A [GestureType] that represents the event in which a pointer that is in
+  /// contact with the screen and moving has moved again, moving vertically in
+  /// a upward direction.
   onPanUpdateUpDirection,
+
+  /// A [GestureType] that represents the event in which a pointer that is in
+  /// contact with the screen and moving has moved again, moving horizontally
+  /// in a leftward direction.
   onPanUpdateLeftDirection,
+
+  /// A [GestureType] that represents the event in which a pointer that is in
+  /// contact with the screen and moving has moved again, moving horizontally
+  /// in a rightward direction.
   onPanUpdateRightDirection,
+
+  /// A [GestureType] that represents the event in which a pointer that was
+  /// previously in contact with the screen and moving is no longer in contact
+  /// with the screen and was moving at a specific velocity when it stopped
+  /// contacting the screen.
   onPanEnd,
+
+  /// A [GestureType] that represents the event in which the pointer that
+  /// previously triggered [GestureType.onPanDown] did not complete.
   onPanCancel,
+
+  /// A [GestureType] that represents the event in which the pointers in
+  /// contact with the screen have established a focal point.
   onScaleStart,
+
+  /// A [GestureType] that represents the event in which the pointers in
+  /// contact with the screen have indicated a new focal point and/or scale.
   onScaleUpdate,
+
+  /// A [GestureType] that represents the event in which the pointers are no
+  /// longer in contact with the screen.
   onScaleEnd,
 }
 
