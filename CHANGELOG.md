@@ -1,3 +1,7 @@
+## [2.0.1] - February 2022
+
+* Updates package to Flutter 2.10, adds doc comments to gesture types.
+
 ## [2.0.0] - March 2021
 
 * Migrates package to Dart null safety.
