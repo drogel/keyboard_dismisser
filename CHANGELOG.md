@@ -1,3 +1,7 @@
+## [3.0.0] - February 2022
+
+* Updates package to Flutter 3.0.0.
+
 ## [2.0.1] - February 2022
 
 * Updates package to Flutter 2.10, adds doc comments to gesture types.

@@ -1,6 +1,6 @@
 name: keyboard_dismisser
 description: A simple Flutter package to hide the keyboard when performing a gesture outside of it.
-version: 2.0.1
+version: 3.0.0
 homepage: https://github.com/drogel/keyboard_dismisser
 
 environment:
