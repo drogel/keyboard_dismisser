@@ -415,7 +415,7 @@ class KeyboardDismisser extends StatelessWidget {
       );
 
   void _unfocus(BuildContext context) =>
-      WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
+      WidgetsBinding.instance?.focusManager.primaryFocus?.unfocus();
 
   void _unfocusWithDetails(
     BuildContext context,
